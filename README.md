@@ -1,4 +1,4 @@
 PQ-Chain + EMP — Submission bundle
 
-Author: Yassir Boudda — Collège de Paris, Université de Lille, CentraleSupélec, PPA
+Author: Yassir Boudda 
 Contact: yassir@ami.finance
