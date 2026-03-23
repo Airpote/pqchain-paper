@@ -1,6 +1,3 @@
-# Ignore compiled PDF
-paper.pdf
-
 # Node / python envs (if any)
 node_modules/
 .env
