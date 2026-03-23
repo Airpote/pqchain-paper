@@ -1,0 +1,11 @@
+# Ignore compiled PDF
+paper.pdf
+
+# Node / python envs (if any)
+node_modules/
+.env
+
+# Archives (optional)
+#pqchain_zenodo_bundle.zip
+#pqchain_iacr_bundle.zip
+#pqchain_arxiv_source.tar.gz

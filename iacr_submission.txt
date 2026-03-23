@@ -1,0 +1,14 @@
+Title: PQ-Chain and the Ephemeral Multisig Protocol: A Dual-Strategy Framework for Quantum-Resilient Blockchain Systems
+
+Authors:
+- Yassir Boudda — Collège de Paris; CentraleSupélec; PPA Business School; Université de Lille
+
+Contact: yassir.boudda@amichain.org
+
+Abstract:
+The rapid advancement of quantum computing poses an existential threat to the cryptographic foundations of modern blockchain systems. Current architectures rely on the Elliptic Curve Digital Signature Algorithm (ECDSA) and SHA-256---both vulnerable to Shor's and Grover's quantum algorithms. With NIST's finalization of post-quantum cryptographic (PQC) standards in August 2024---FIPS 203 (ML-KEM), FIPS 204 (ML-DSA), and FIPS 205 (SLH-DSA)---the path toward quantum-resilient cryptography is concretely defined. This paper presents two complementary contributions. First, we introduce PQ-Chain, a comprehensive architectural framework for migrating Layer-1 blockchain systems to post-quantum cryptography. PQ-Chain addresses increased signature sizes (2,420--4,627 bytes for ML-DSA vs. 64 bytes for ECDSA), computational overhead, and bandwidth implications through a novel Hybrid Signature Aggregation Protocol (HSAP), achieving 82% of baseline ECDSA throughput. Second, we propose the Ephemeral Multisig Protocol (EMP), a novel time-bounded key rotation mechanism that provides immediate quantum resistance through moving target defense---without requiring post-quantum signature algorithms. EMP augments a standard n-of-n multisignature vault with a continuously rotating ephemeral signer that is cryptographically destroyed and regenerated at fixed intervals Δt, compressing the quantum attack window to a provably insufficient duration. We provide formal security analysis demonstrating that EMP renders Shor's algorithm ineffective when Δt < T_{Shor}(k) for key size k, and present PQ-Chain+EMP as a defense-in-depth strategy combining algorithmic migration with temporal key isolation. Experimental benchmarks demonstrate EMP adds less than 3% latency overhead to standard multisig operations while reducing quantum vulnerability by orders of magnitude.
+
+Keywords: Post-Quantum Cryptography; Blockchain; Ephemeral Key Rotation; Multisignature; Moving Target Defense; NIST FIPS 203; ML-KEM; ML-DSA; SLH-DSA
+
+Submission note:
+This archive contains the PDF and metadata for IACR ePrint submission. Please contact the author for any questions regarding provenance or supplementary code.

@@ -1,0 +1,31 @@
+arXiv submission checklist — PQ-Chain + EMP
+
+Files included in `pqchain_arxiv_source.tar.gz`:
+- paper.tex
+- paper_backup.tex
+- README.md
+- license.txt
+
+Notes and steps:
+1. Inspect `paper.tex` locally and compile to ensure reproducibility:
+   - `pdflatex -interaction=nonstopmode paper.tex` (repeat twice if needed for references)
+   - If you use `bibtex`/`biber`, include `.bib` and run the appropriate tool.
+2. arXiv prefers a single source archive (.tar.gz or .zip). We created `pqchain_arxiv_source.tar.gz` which contains all necessary files.
+3. Ensure no non-standard `.sty` files or external dependencies are required. Our source uses standard TeX Live packages (tikz, pgfplots, algorithm, etc.). If arXiv build fails due to missing packages, include the minimal `.sty` files or switch to PDF submission.
+4. Recommended metadata to copy into arXiv form:
+   - Title: PQ-Chain and the Ephemeral Multisig Protocol: A Dual-Strategy Framework for Quantum-Resilient Blockchain Systems
+   - Authors: Yassir Boudda (Collège de Paris; CentraleSupélec; PPA Business School; Université de Lille)
+   - Abstract: (use the abstract block from `paper.tex`)
+   - Comments: 12 pages (or actual page count), LaTeX source and PDF included
+   - License: CC-BY 4.0
+5. Upload procedure:
+   - Login at https://arxiv.org/submit
+   - Create new submission, choose appropriate category (e.g., cs.CR, cs.NI, cs.DC, or quant-ph if applicable; recommend `cs.CR` or `cs.DC` with `cryptography`/`distributed-systems` keywords)
+   - Upload the source archive and the PDF if desired; check the recommended TeX engine if compilation issues arise.
+6. After upload, check the arXiv compile log and address missing packages by adding `.sty` files or switching to PDF-only submission.
+
+Local commands to regenerate tarball (run before upload if you edit sources):
+
+```bash
+tar -czf pqchain_arxiv_source.tar.gz paper.tex paper_backup.tex README.md license.txt
+```
