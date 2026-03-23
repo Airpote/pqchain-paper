@@ -29,6 +29,7 @@
 \usepackage{listings}
 \usepackage{multirow}
 \usepackage{abstract}
+\usepackage{placeins}
 
 \geometry{margin=2cm, top=2.5cm, bottom=2.5cm}
 
@@ -59,7 +60,8 @@
   breaklines=true,
   frame=single,
   numbers=left,
-  numberstyle=\tiny\color{gray}
+  numberstyle=\tiny\color{gray},
+  linewidth=\columnwidth
 }
 
 % ============================================================
@@ -78,7 +80,7 @@
   \small CentraleSup\'elec -- Data Science (OpenClassrooms Partnership)\\
   \small PPA Business School -- Master's Graduate\\
   \small Universit\'e de Lille -- Bachelor of Law, Economics and Management\\
-  \small \texttt{yassir.boudda@amichain.org}
+  \small \texttt{yassir@ami.finance}
 }
 
 \date{March 2026}
@@ -167,10 +169,10 @@ Following a multi-year evaluation initiated in 2016, NIST finalized three PQC st
 \subsubsection{ML-KEM (FIPS 203)}
 Module-Lattice-Based Key-Encapsulation Mechanism, derived from CRYSTALS-Kyber \cite{bos2018crystals}, based on the Module Learning With Errors (M-LWE) problem:
 
-\begin{table}[H]
+% ==================== TABLE 1: ML-KEM (page 4) ====================
+\begin{table}[t]
 \centering
-\caption{ML-KEM Parameter Sets}
-\label{tab:mlkem}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lccc}
 \toprule
 \textbf{Parameter} & \textbf{ML-KEM-512} & \textbf{ML-KEM-768} & \textbf{ML-KEM-1024} \\
@@ -181,15 +183,18 @@ Ciphertext (bytes) & 768 & 1,088 & 1,568 \\
 Shared Secret (bytes) & 32 & 32 & 32 \\
 \bottomrule
 \end{tabular}
+}
+\caption{ML-KEM Parameter Sets}
+\label{tab:mlkem}
 \end{table}
 
 \subsubsection{ML-DSA (FIPS 204)}
 Module-Lattice-Based Digital Signature Algorithm, derived from CRYSTALS-Dilithium \cite{ducas2018crystals}:
 
-\begin{table}[H]
+% ==================== TABLE 2: ML-DSA (the widest one) ====================
+\begin{table}[t]
 \centering
-\caption{ML-DSA Parameter Sets}
-\label{tab:mldsa}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lccc}
 \toprule
 \textbf{Parameter} & \textbf{ML-DSA-44} & \textbf{ML-DSA-65} & \textbf{ML-DSA-87} \\
@@ -201,15 +206,18 @@ Signing Time (ms) & $\sim$0.3 & $\sim$0.5 & $\sim$0.8 \\
 Verification (ms) & $\sim$0.3 & $\sim$0.4 & $\sim$0.5 \\
 \bottomrule
 \end{tabular}
+}
+\caption{ML-DSA Parameter Sets}
+\label{tab:mldsa}
 \end{table}
 
 \subsubsection{SLH-DSA (FIPS 205)}
 Stateless Hash-Based Digital Signature Algorithm, derived from SPHINCS+ \cite{bernstein2019sphincs}:
 
-\begin{table}[H]
+% ==================== TABLE 3: SLH-DSA ====================
+\begin{table}[t]
 \centering
-\caption{SLH-DSA Parameter Sets (Selected)}
-\label{tab:slhdsa}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lccc}
 \toprule
 \textbf{Parameter} & \textbf{SLH-DSA-128f} & \textbf{SLH-DSA-192f} & \textbf{SLH-DSA-256f} \\
@@ -220,6 +228,9 @@ Signature (bytes) & 17,088 & 35,664 & 49,856 \\
 Signing Time (ms) & $\sim$5.0 & $\sim$12 & $\sim$20 \\
 \bottomrule
 \end{tabular}
+}
+\caption{SLH-DSA Parameter Sets (Selected)}
+\label{tab:slhdsa}
 \end{table}
 
 \subsection{Blockchain Architecture Components}
@@ -345,11 +356,12 @@ We present PQ-Chain, a modular framework for integrating NIST PQC standards into
 
 PQ-Chain introduces a \textbf{Cryptographic Abstraction Layer} (CAL) that decouples the blockchain's core logic from specific cryptographic implementations.
 
-\begin{figure}[H]
+\begin{figure}[t]
 \centering
+\resizebox{\columnwidth}{!}{%
 \begin{tikzpicture}[
   node distance=0.6cm,
-  layer/.style={draw, rounded corners, minimum width=6.5cm, minimum height=0.7cm, font=\small, align=center},
+  layer/.style={draw, rounded corners, minimum width=5cm, minimum height=0.7cm, font=\small, align=center}, % reduced for safety
   arrow/.style={-{Stealth[length=2mm]}, thick}
 ]
   \node[layer, fill=blue!15] (app) {Application Layer (Wallets, dApps)};
@@ -368,6 +380,7 @@ PQ-Chain introduces a \textbf{Cryptographic Abstraction Layer} (CAL) that decoup
   \node[draw, dashed, rounded corners, fill=yellow!10, minimum width=2.5cm, minimum height=2cm, font=\scriptsize, align=center, right=0.8cm of cal] (pqc) {PQC Module\\[0.2em] ML-DSA\\ML-KEM\\SLH-DSA\\ECDSA (legacy)};
   \draw[arrow, dashed] (pqc) -- (cal);
 \end{tikzpicture}
+}
 \caption{PQ-Chain architectural overview with Cryptographic Abstraction Layer.}
 \label{fig:architecture}
 \end{figure}
@@ -576,8 +589,9 @@ The \texttt{SecureWipe} operation performs cryptographic erasure: the private ke
 
 The vault evolves through a sequence of ephemeral epochs. Figure~\ref{fig:emp_flow} illustrates this evolution.
 
-\begin{figure}[H]
+\begin{figure}[t]
 \centering
+\resizebox{\columnwidth}{!}{%
 \begin{tikzpicture}[
   state/.style={draw, rounded corners, minimum width=1.8cm, minimum height=0.7cm, font=\scriptsize, align=center},
   tx/.style={draw, diamond, minimum width=0.3cm, minimum height=0.3cm, font=\scriptsize, fill=green!15},
@@ -585,8 +599,8 @@ The vault evolves through a sequence of ephemeral epochs. Figure~\ref{fig:emp_fl
   timeline/.style={-{Stealth[length=2mm]}, thick},
   event/.style={-{Stealth[length=1.5mm]}, dashed, red!70!black}
 ]
-  % Timeline
-  \draw[timeline] (0,0) -- (7.5,0) node[right, font=\scriptsize] {$t$};
+  % shortened timeline so it never overflows even before scaling
+  \draw[timeline] (0,0) -- (6.5,0) node[right, font=\scriptsize] {$t$};
   
   % Time markers
   \foreach \x/\t in {0/0, 1.5/\Delta t, 3/2\Delta t, 4.5/3\Delta t, 6/4\Delta t} {
@@ -613,6 +627,7 @@ The vault evolves through a sequence of ephemeral epochs. Figure~\ref{fig:emp_fl
   \node[font=\tiny, above] at (0.75, 1.6) {Active};
   \node[font=\tiny, above, red] at (1.5, 1.6) {Wiped};
 \end{tikzpicture}
+}
 \caption{EMP vault state transitions. $E_j$ = active ephemeral key. ``R'' = rotation events. Diamond = transaction triggering immediate rotation.}
 \label{fig:emp_flow}
 \end{figure}
@@ -795,8 +810,9 @@ Under the M-LWE assumption and $\Delta t < T_{\text{Shor}}(k)$, PQ-Chain+EMP is 
 
 \subsection{Deployment Timeline}
 
-\begin{figure}[H]
+\begin{figure}[t]
 \centering
+\resizebox{\columnwidth}{!}{%
 \begin{tikzpicture}[
   phase/.style={draw, rounded corners, minimum height=0.5cm, font=\scriptsize, fill=#1},
   timeline/.style={-{Stealth[length=2mm]}, thick},
@@ -816,6 +832,7 @@ Under the M-LWE assumption and $\Delta t < T_{\text{Shor}}(k)$, PQ-Chain+EMP is 
   \node[font=\tiny, left] at (0.2, 0.7) {EMP};
   \node[font=\tiny, left] at (0.2, 1.4) {PQ};
 \end{tikzpicture}
+}
 \caption{Deployment timeline: EMP provides immediate protection while PQ-Chain migration proceeds over multiple years.}
 \label{fig:timeline}
 \end{figure}
@@ -866,8 +883,9 @@ ML-DSA-65 + HSAP          & 1,018 &   952 &   868 & $-$18.4\% \\
 \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[t]
 \centering
+\resizebox{\columnwidth}{!}{%
 \begin{tikzpicture}
 \begin{axis}[
   ybar,
@@ -877,7 +895,7 @@ ML-DSA-65 + HSAP          & 1,018 &   952 &   868 & $-$18.4\% \\
   ylabel={Throughput (TPS)},
   symbolic x coords={ECDSA, ML-DSA-44, ML-DSA-65, ML-DSA-87, SLH-DSA-128f, Hybrid, HSAP},
   xtick=data,
-  x tick label style={rotate=45, anchor=east, font=\scriptsize},
+  x tick label style={rotate=45, anchor=east, font=\footnotesize},
   ymin=0,
   ymax=1400,
   nodes near coords,
@@ -895,6 +913,7 @@ ML-DSA-65 + HSAP          & 1,018 &   952 &   868 & $-$18.4\% \\
 };
 \end{axis}
 \end{tikzpicture}
+}
 \caption{Transaction throughput across signature schemes.}
 \label{fig:throughput}
 \end{figure}
@@ -916,10 +935,10 @@ ML-DSA-65 + HSAP          & 0.58 & 0.94 \\
 
 \subsection{EMP Performance Results}
 
-\begin{table}[H]
+% ==================== TABLE 8: EMP Operational Benchmarks ====================
+\begin{table}[t]
 \centering
-\caption{EMP Operational Benchmarks}
-\label{tab:emp_bench}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lcc}
 \toprule
 \textbf{Operation} & \textbf{Mean} & \textbf{P99} \\
@@ -933,12 +952,15 @@ Vault State Update & 2.1 ms & 4.8 ms \\
 3-of-3 Signing (ML-DSA-65) & 1,413 $\mu$s & 1,892 $\mu$s \\
 \bottomrule
 \end{tabular}
+}
+\caption{EMP Operational Benchmarks}
+\label{tab:emp_bench}
 \end{table}
 
-\begin{table}[H]
+% ==================== TABLE 9: EMP Overhead ====================
+\begin{table}[t]
 \centering
-\caption{EMP Overhead vs.\ Standard Multisig}
-\label{tab:emp_overhead}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lccc}
 \toprule
 \textbf{Metric} & \textbf{2-of-2} & \textbf{3-of-3 EMP} & \textbf{Overhead} \\
@@ -951,14 +973,17 @@ Rotations/day & 0 & 288 & --- \\
 Rotation cost/day & 0 & $\sim$0.02 ETH & --- \\
 \bottomrule
 \end{tabular}
+}
+\caption{EMP Overhead vs.\ Standard Multisig}
+\label{tab:emp_overhead}
 \end{table}
 
 \subsection{Storage Analysis}
 
-\begin{table}[H]
+% ==================== TABLE 10: Storage Analysis ====================
+\begin{table}[t]
 \centering
-\caption{Daily Storage Growth (GB/day at 1,000 TPS)}
-\label{tab:storage}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lcc}
 \toprule
 \textbf{Scheme} & \textbf{Full Nodes} & \textbf{With HSAP} \\
@@ -970,14 +995,17 @@ ML-DSA-87            & 47.2 & 18.1 \\
 SLH-DSA-128f         & 158.3 & 42.6 \\
 \bottomrule
 \end{tabular}
+}
+\caption{Daily Storage Growth (GB/day at 1,000 TPS)}
+\label{tab:storage}
 \end{table}
 
 \subsection{Cryptographic Operation Benchmarks}
 
-\begin{table}[H]
+% ==================== TABLE 11: Latency ====================
+\begin{table}[t]
 \centering
-\caption{Single-Core Operation Latency ($\mu$s)}
-\label{tab:latency}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lccc}
 \toprule
 \textbf{Operation} & \textbf{KeyGen} & \textbf{Sign} & \textbf{Verify} \\
@@ -990,6 +1018,9 @@ SLH-DSA-128f           & 1,180 & 4,872 & 298 \\
 SLH-DSA-128s           & 1,180 & 68,410 & 142 \\
 \bottomrule
 \end{tabular}
+}
+\caption{Single-Core Operation Latency ($\mu$s)}
+\label{tab:latency}
 \end{table}
 
 Key findings include:
